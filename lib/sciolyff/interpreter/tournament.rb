@@ -41,7 +41,9 @@ module SciolyFF
       @date ||= if @rep[:date].instance_of?(Date)
                   @rep[:date]
                 else
-                  Date.parse(@rep[:date])
+                  if !@rep[:date].nil?
+                    Date.parse(@rep[:date])
+                  end
                 end
     end
 
@@ -56,7 +58,9 @@ module SciolyFF
                         if @rep[:date].instance_of?(Date)
                           @rep[:date]
                         else
-                          Date.parse(@rep[:date])
+                          if !@rep[:date].nil?
+                            Date.parse(@rep[:date])
+                          end
                         end
                       end
     end
@@ -72,7 +76,9 @@ module SciolyFF
                       if @rep[:date].instance_of?(Date)
                         @rep[:date]
                       else
-                        Date.parse(@rep[:date])
+                        if !@rep[:date].nil?
+                          Date.parse(@rep[:date])
+                        end
                       end
                     end
     end
@@ -95,7 +101,9 @@ module SciolyFF
                            if @rep[:date].instance_of?(Date)
                              @rep[:date]
                            else
-                             Date.parse(@rep[:date])
+                            if !@rep[:date].nil?
+                              Date.parse(@rep[:date])
+                            end
                            end
                          end
                        end
