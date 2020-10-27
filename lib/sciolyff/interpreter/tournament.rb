@@ -43,6 +43,8 @@ module SciolyFF
                 else
                   if !@rep[:date].nil?
                     Date.parse(@rep[:date])
+                  else
+                    '1982-03-29'
                   end
                 end
     end
@@ -60,6 +62,8 @@ module SciolyFF
                         else
                           if !@rep[:date].nil?
                             Date.parse(@rep[:date])
+                          else
+                            '1982-03-29'
                           end
                         end
                       end
@@ -78,6 +82,8 @@ module SciolyFF
                       else
                         if !@rep[:date].nil?
                           Date.parse(@rep[:date])
+                        else
+                          '1982-03-29'
                         end
                       end
                     end
@@ -103,6 +109,8 @@ module SciolyFF
                            else
                             if !@rep[:date].nil?
                               Date.parse(@rep[:date])
+                            else
+                              '1982-03-29'
                             end
                            end
                          end
