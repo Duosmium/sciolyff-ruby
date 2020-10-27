@@ -45,6 +45,42 @@ module SciolyFF
                 end
     end
 
+    def start_date
+      @start_date ||= if defined? @rep[:'start date']
+                        if @rep[:'start date'].instance_of?(Date)
+                          @rep[:'start date']
+                        else
+                          Date.parse(@rep[:'start date'])
+                        end
+                      else
+                        date
+                      end
+    end
+
+    def end_date
+      @end_date ||= if defined? @rep[:'end date']
+                      if @rep[:'end date'].instance_of?(Date)
+                        @rep[:'end date']
+                      else
+                        Date.parse(@rep[:'end date'])
+                      end
+                    else
+                      date
+                    end
+    end
+
+    def awards_date
+      @awards_date ||= if defined? @rep[:'awards date']
+                         if @rep[:'awards date'].instance_of?(Date)
+                           @rep[:'awards date']
+                         else
+                           Date.parse(@rep[:'awards date'])
+                         end
+                       else
+                         end_date
+                       end
+    end
+
     def medals
       @rep[:medals] || [calc_medals, maximum_place].min
     end
