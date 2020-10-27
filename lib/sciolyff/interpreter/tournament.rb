@@ -46,7 +46,7 @@ module SciolyFF
     end
 
     def start_date
-      @start_date ||= if defined? @rep[:'start date']
+      @start_date ||= if !@rep[:'start date'].nil?
                         if @rep[:'start date'].instance_of?(Date)
                           @rep[:'start date']
                         else
@@ -62,7 +62,7 @@ module SciolyFF
     end
 
     def end_date
-      @end_date ||= if defined? @rep[:'end date']
+      @end_date ||= if !@rep[:'end date'].nil?
                       if @rep[:'end date'].instance_of?(Date)
                         @rep[:'end date']
                       else
@@ -78,14 +78,14 @@ module SciolyFF
     end
 
     def awards_date
-      @awards_date ||= if defined? @rep[:'awards date']
+      @awards_date ||= if !@rep[:'awards date'].nil?
                          if @rep[:'awards date'].instance_of?(Date)
                            @rep[:'awards date']
                          else
                            Date.parse(@rep[:'awards date'])
                          end
                        else
-                         if defined? @rep[:'end date']
+                         if !@rep[:'end date'].nil?
                            if @rep[:'end date'].instance_of?(Date)
                              @rep[:'end date']
                            else
