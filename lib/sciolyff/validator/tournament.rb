@@ -13,8 +13,7 @@ module SciolyFF
       location: String,
       level: %w[Invitational Regionals States Nationals],
       division: %w[A B C],
-      year: Integer,
-      date: Date
+      year: Integer
     }.freeze
 
     OPTIONAL = {
@@ -29,7 +28,10 @@ module SciolyFF
       'exempt placings': Integer,
       'maximum place': Integer,
       'per-event n': %w[place participation],
-      'n offset': Integer
+      'n offset': Integer,
+      date: Date,
+      'start date': Date,
+      'end date': Date
     }.freeze
 
     def initialize(rep)
@@ -121,6 +123,15 @@ module SciolyFF
 
     def bids_within_range?(tournament, logger)
       within_range?(tournament, :bids, logger, 1, @schools_count)
+    end
+
+    def date_included?(tournament, logger)
+      if !tournament[:date].is_a?(Date) || (!tournament[:'start date'].is_a?(Date) && !tournament[:'end date'].is_a?(Date))
+        return true
+      end
+
+      logger.error 'You need either a date for the tournament (if it took place in one day) '\
+        'or beginning and end dates (if it took place over the course of multiple days).'
     end
   end
 end
