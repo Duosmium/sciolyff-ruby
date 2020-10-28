@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 Gem::Specification.new do |s|
-  s.authors  = ['Em Zhan']
-  s.homepage = 'https://github.com/zqianem/sciolyff'
+  s.authors  = ['Em Zhan', 'Shreyas Mayya']
+  s.homepage = 'https://github.com/smayya337/sciolyff'
   s.files    = `git ls-files -z`.split("\x0").reject do |f|
     f.start_with? 'examples/', '.'
   end
