@@ -41,10 +41,8 @@ module SciolyFF
       @date ||= if @rep[:date].instance_of?(Date)
                   @rep[:date]
                 else
-                  if !@rep[:date].nil?
+                  unless @rep[:date].nil?
                     Date.parse(@rep[:date])
-                  else
-                    '1982-03-29'
                   end
                 end
     end
@@ -60,10 +58,8 @@ module SciolyFF
                         if @rep[:date].instance_of?(Date)
                           @rep[:date]
                         else
-                          if !@rep[:date].nil?
+                          unless @rep[:date].nil?
                             Date.parse(@rep[:date])
-                          else
-                            '1982-03-29'
                           end
                         end
                       end
@@ -80,10 +76,8 @@ module SciolyFF
                       if @rep[:date].instance_of?(Date)
                         @rep[:date]
                       else
-                        if !@rep[:date].nil?
+                        unless @rep[:date].nil?
                           Date.parse(@rep[:date])
-                        else
-                          '1982-03-29'
                         end
                       end
                     end
@@ -107,11 +101,9 @@ module SciolyFF
                            if @rep[:date].instance_of?(Date)
                              @rep[:date]
                            else
-                            if !@rep[:date].nil?
-                              Date.parse(@rep[:date])
-                            else
-                              '1982-03-29'
-                            end
+                             unless @rep[:date].nil?
+                               Date.parse(@rep[:date])
+                             end
                            end
                          end
                        end
