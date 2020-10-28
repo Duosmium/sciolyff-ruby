@@ -31,7 +31,8 @@ module SciolyFF
       'n offset': Integer,
       date: Date,
       'start date': Date,
-      'end date': Date
+      'end date': Date,
+      'awards date': Date
     }.freeze
 
     def initialize(rep)
