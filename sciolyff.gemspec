@@ -2,12 +2,12 @@
 
 Gem::Specification.new do |s|
   s.authors  = ['Em Zhan', 'Shreyas Mayya']
-  s.homepage = 'https://github.com/smayya337/sciolyff'
+  s.homepage = 'https://github.com/duosmium/sciolyff'
   s.files    = `git ls-files -z`.split("\x0").reject do |f|
     f.start_with? 'examples/', '.'
   end
   s.license  = 'MIT'
-  s.name     = 'sciolyff'
+  s.name     = 'sciolyff-duosmium'
   s.summary  = 'A file format for Science Olympiad tournament results.'
   s.version  = '0.13.0'
   s.executables << 'sciolyff'
