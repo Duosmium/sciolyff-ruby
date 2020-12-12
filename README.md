@@ -1,6 +1,6 @@
 # SciolyFF (Science Olympiad File Format)
 
-[![Gem Version](https://badge.fury.io/rb/sciolyff.svg)](https://badge.fury.io/rb/sciolyff)
+[![Gem Version](https://badge.fury.io/rb/sciolyff-duosmium.svg)](https://badge.fury.io/rb/sciolyff-duosmium)
 
 We propose a standardized file format called SciolyFF to represent Science
 Olympiad tournament results. This will allow for a more universal record of
@@ -9,8 +9,8 @@ other fun stuff. The format is a subset of YAML for easy implementation of
 parsers across many programming languages.
 
 A website that generates results tables based off SciolyFF files can be found
-[here](https://unosmium.org/results/) and the source code for the website
-[here](https://github.com/unosmium/unosmium.org).
+[here](https://duosmium.smayya.me/results/) and the source code for the website
+[here](https://github.com/Duosmium/duosmium).
 
 ## Specification
 
@@ -29,9 +29,9 @@ This gem is currently in an alpha stage. To get the latest changes before
 official releases, build from source:
 
 ```
-git clone https://github.com/unosmium/sciolyff.git && cd sciolyff
+git clone https://github.com/Duosmium/sciolyff.git && cd sciolyff
 gem build sciolyff.gemspec
-gem install ./sciolyff-0.12.0.gem
+gem install ./sciolyff-duosmium-0.13.0.gem
 ```
 
 ## Usage
@@ -86,7 +86,7 @@ i.teams #=> [#<...{:school=>"Troy H.S.", :number=>3, :state=>"CA"}>, ... ]
 
 A fuller example can be found here in the code for the Unosmium Results website,
 found
-[here](https://github.com/unosmium/unosmium.org/blob/master/source/results/template.html.erb).
+[here](https://github.com/Duosmium/duosmium/blob/master/source/results/template.html.erb).
 There is also of course the
-[documentation](https://www.rubydoc.info/gems/sciolyff/0.12.0), a bit sparse
+[documentation](https://www.rubydoc.info/gems/sciolyff-duosmium/0.13.0), a bit sparse
 currently.
