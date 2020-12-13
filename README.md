@@ -22,7 +22,7 @@ outlined in the comments of the demo file should be respected.
 ## Installation
 
 ```
-gem install sciolyff
+gem install sciolyff-duosmium
 ```
 
 This gem is currently in an alpha stage. To get the latest changes before
