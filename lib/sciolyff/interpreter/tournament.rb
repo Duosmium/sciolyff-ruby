@@ -38,48 +38,22 @@ module SciolyFF
     end
 
     def date
-      @date ||= if @rep[:date].instance_of?(Date)
-                  @rep[:date]
-                else
-                  unless @rep[:date].nil?
-                    Date.parse(@rep[:date])
-                  end
-                end
+      @date ||= Date.parse(@rep[:date]) unless @rep[:date].nil?
     end
 
     def start_date
       @start_date ||= if !@rep[:'start date'].nil?
-                        if @rep[:'start date'].instance_of?(Date)
-                          @rep[:'start date']
-                        else
-                          Date.parse(@rep[:'start date'])
-                        end
+                        Date.parse(@rep[:'start date'])
                       else
-                        if @rep[:date].instance_of?(Date)
-                          @rep[:date]
-                        else
-                          unless @rep[:date].nil?
-                            Date.parse(@rep[:date])
-                          end
-                        end
+                        Date.parse(@rep[:date])
                       end
     end
 
     def end_date
       @end_date ||= if !@rep[:'end date'].nil?
-                      if @rep[:'end date'].instance_of?(Date)
-                        @rep[:'end date']
-                      else
-                        Date.parse(@rep[:'end date'])
-                      end
+                      Date.parse(@rep[:'end date'])
                     else
-                      if @rep[:date].instance_of?(Date)
-                        @rep[:date]
-                      else
-                        unless @rep[:date].nil?
-                          Date.parse(@rep[:date])
-                        end
-                      end
+                      Date.parse(@rep[:date])
                     end
     end
 
