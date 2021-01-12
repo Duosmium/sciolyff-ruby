@@ -22,13 +22,13 @@ module SciolyFF
       @checkers = {}
     end
 
-    def valid?(rep_or_yaml)
+    def valid?(rep_or_json)
       @logger.flush
 
-      if rep_or_yaml.instance_of? String
-        valid_yaml?(rep_or_yaml, @logger)
+      if rep_or_json.instance_of? String
+        valid_json?(rep_or_json, @logger)
       else
-        valid_rep?(rep_or_yaml, @logger)
+        valid_rep?(rep_or_json, @logger)
       end
     end
 
@@ -50,14 +50,15 @@ module SciolyFF
       result
     end
 
-    def valid_yaml?(yaml, logger)
-      rep = Psych.safe_load(
-        yaml,
-        permitted_classes: [Date],
-        symbolize_names: true
-      )
+    def valid_json?(yaml, logger)
+      # rep = Psych.safe_load(
+      #   yaml,
+      #   permitted_classes: [Date],
+      #   symbolize_names: true
+      # )
+      rep = JSON.parse(yaml)
     rescue StandardError => e
-      logger.error "could not read input as YAML:\n#{e.message}"
+      logger.error "could not read input as JSON:\n#{e.message}"
     else
       valid_rep?(rep, logger)
     end
