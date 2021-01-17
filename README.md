@@ -9,7 +9,7 @@ other fun stuff. The format is a subset of YAML for easy implementation of
 parsers across many programming languages.
 
 A website that generates results tables based off SciolyFF files can be found
-[here](https://duosmium.smayya.me/results/) and the source code for the website
+[here](https://duosmium.org/results/) and the source code for the website
 [here](https://github.com/Duosmium/duosmium).
 
 ## Specification
@@ -31,7 +31,7 @@ official releases, build from source:
 ```
 git clone https://github.com/Duosmium/sciolyff.git && cd sciolyff
 gem build sciolyff.gemspec
-gem install ./sciolyff-duosmium-0.13.0.gem
+gem install ./sciolyff-duosmium-0.13.1.gem
 ```
 
 ## Usage
@@ -84,9 +84,9 @@ team_one.points #=> 448
 i.teams #=> [#<...{:school=>"Troy H.S.", :number=>3, :state=>"CA"}>, ... ]
 ```
 
-A fuller example can be found here in the code for the Unosmium Results website,
+A fuller example can be found here in the code for the Duosmium Results website,
 found
 [here](https://github.com/Duosmium/duosmium/blob/master/source/results/template.html.erb).
 There is also of course the
-[documentation](https://www.rubydoc.info/gems/sciolyff-duosmium/0.13.0), a bit sparse
+[documentation](https://www.rubydoc.info/gems/sciolyff-duosmium/0.13.1), a bit sparse
 currently.

@@ -1,3 +1,5 @@
 *.gem
 ztestscript*.rb
 .idea
+.yardoc
+doc
