@@ -1,37 +1,37 @@
 # frozen_string_literal: true
 
 module SciolyFF
-  # Subdivision logic, to be used in the Interpreter class
-  module Interpreter::Subdivisions
+  # Track logic, to be used in the Interpreter class
+  module Interpreter::Tracks
     private
 
-    def subdivision_rep(sub)
+    def track_rep(sub)
       # make a deep copy of rep
       rep = Marshal.load(Marshal.dump(@rep))
 
-      remove_teams_not_in_subdivision(rep, sub)
-      fix_subdivision_tournament_fields(rep, sub)
+      remove_teams_not_in_track(rep, sub)
+      fix_track_tournament_fields(rep, sub)
       limit_maximum_place(rep)
       fix_placings_for_existing_teams(rep) unless raws?
       rep
     end
 
-    def remove_teams_not_in_subdivision(rep, sub)
-      rep[:Teams].select! { |t| t.delete(:subdivision) == sub }
+    def remove_teams_not_in_track(rep, sub)
+      rep[:Teams].select! { |t| t.delete(:track) == sub }
 
       team_numbers = rep[:Teams].map { |t| t[:number] }
       rep[:Placings].select! { |p| team_numbers.include? p[:team] }
     end
 
-    def fix_subdivision_tournament_fields(rep, sub)
+    def fix_track_tournament_fields(rep, sub)
       tournament_rep = rep[:Tournament]
-      sub_rep = rep[:Subdivisions].find { |s| s[:name] == sub }
+      sub_rep = rep[:Tracks].find { |s| s[:name] == sub }
 
       replace_tournament_fields(tournament_rep, sub_rep)
 
       tournament_rep.delete(:bids)
       tournament_rep.delete(:'bids per school')
-      rep.delete(:Subdivisions)
+      rep.delete(:Tracks)
     end
 
     def replace_tournament_fields(tournament_rep, sub_rep)

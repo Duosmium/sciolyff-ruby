@@ -15,10 +15,10 @@ module SciolyFF
       @teams = interpreter.teams
       @placings = interpreter.placings
       @penalties = interpreter.penalties
-      @subdivisions = interpreter.subdivisions
+      @tracks = interpreter.tracks
     end
 
-    attr_reader :events, :teams, :placings, :penalties, :subdivisions
+    attr_reader :events, :teams, :placings, :penalties, :tracks
 
     undef tournament
 
@@ -171,8 +171,8 @@ module SciolyFF
       end
     end
 
-    def subdivisions?
-      !@subdivisions.empty?
+    def tracks?
+      !@tracks.empty?
     end
 
     def nonexhibition_teams_count

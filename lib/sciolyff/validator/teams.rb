@@ -17,7 +17,7 @@ module SciolyFF
 
     OPTIONAL = {
       'school abbreviation': String,
-      subdivision: String,
+      track: String,
       suffix: String,
       city: String,
       disqualified: [true, false],
@@ -26,7 +26,7 @@ module SciolyFF
 
     def initialize(rep)
       initialize_teams_info(rep[:Teams])
-      @subdivisions = rep[:Subdivisions]&.map { |s| s[:name] } || []
+      @tracks = rep[:Tracks]&.map { |s| s[:name] } || []
       @placings = rep[:Placings].group_by { |p| p[:team] }
       @exempt = rep[:Tournament][:'exempt placings'] || 0
     end
@@ -74,18 +74,18 @@ module SciolyFF
         "exempt placings (#{count} insteand of #{@exempt})"
     end
 
-    def matching_subdivision?(team, logger)
-      sub = team[:subdivision]
-      return true if sub.nil? || @subdivisions.include?(sub)
+    def matching_track?(team, logger)
+      sub = team[:track]
+      return true if sub.nil? || @tracks.include?(sub)
 
-      logger.error "'subdivision: #{sub}' does not match any name in "\
-        'section Subdivisions'
+      logger.error "'track: #{sub}' does not match any name in "\
+        'section Tracks'
     end
 
-    def in_a_subdivision_if_possible?(team, logger)
-      return true unless !@subdivisions.empty? && !team[:subdivision]
+    def in_a_track_if_possible?(team, logger)
+      return true unless !@tracks.empty? && !team[:track]
 
-      logger.warn "missing subdivision for 'team: #{team[:number]}'"
+      logger.warn "missing track for 'team: #{team[:number]}'"
     end
 
     include Validator::Canonical

@@ -10,7 +10,7 @@ module SciolyFF
 
     require 'sciolyff/validator/top_level'
     require 'sciolyff/validator/tournament'
-    require 'sciolyff/validator/subdivisions'
+    require 'sciolyff/validator/tracks'
     require 'sciolyff/validator/events'
     require 'sciolyff/validator/teams'
     require 'sciolyff/validator/placings'
@@ -65,7 +65,7 @@ module SciolyFF
     def check_all(rep, logger)
       check(TopLevel, rep, rep, logger) &&
         check(Tournament, rep, rep[:Tournament], logger) &&
-        [Subdivisions, Events, Teams, Placings, Penalties].all? do |klass|
+        [Tracks, Events, Teams, Placings, Penalties].all? do |klass|
           check_list(klass, rep, logger)
         end &&
         rep[:Placings].map { |p| p[:raw] }.compact.all? do |r|

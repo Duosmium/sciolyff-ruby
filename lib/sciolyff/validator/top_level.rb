@@ -16,7 +16,7 @@ module SciolyFF
     }.freeze
 
     OPTIONAL = {
-      Subdivisions: Array,
+      Tracks: Array,
       Penalties: Array
     }.freeze
   end

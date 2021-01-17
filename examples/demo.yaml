@@ -35,12 +35,12 @@ Tournament:
   # bids: 0  # number of schools/teams advancing to next level of competition
   # bids per school: 1  # the number of the above bids that can go to same school
 
-# Subdivisions section is optional if subdivisions were not used
-Subdivisions:
+# Tracks section is optional if tracks were not used
+Tracks:
   - name: V  # can be anything, typically used for Varsity / JV labels
     # next two lines are optional
-    trophies: 1  # trophies for subdivision, see above
-    medals: 1  # medals for subdivision, see above
+    trophies: 1  # trophies for track, see above
+    medals: 1  # medals for track, see above
 
 Events:
   - name: Anatomy and Physiology
@@ -60,8 +60,8 @@ Teams:
     # next two lines are optional
     school abbreviation: SHS  # only for long, unique names, e.g. TJHSST or LASA
     suffix: A  # can be anything, not just A, B, C, etc. -- use quotes for nums
-    # optional if there are no teams in a subdivision
-    subdivision: V  # must match a name of a subdivision in section above
+    # optional if there are no teams in a track
+    track: V  # must match a name of a track in section above
     # next line is optional if false
     exhibition: false  # if the team's placings don't affect other team's scores
     disqualified: false  # if a team should rank behind all other non-DQ teams

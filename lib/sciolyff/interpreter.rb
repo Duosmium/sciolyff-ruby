@@ -11,7 +11,7 @@ module SciolyFF
     require 'sciolyff/interpreter/penalty'
 
     require 'sciolyff/interpreter/tiebreaks'
-    require 'sciolyff/interpreter/subdivisions'
+    require 'sciolyff/interpreter/tracks'
     require 'sciolyff/interpreter/html'
 
     attr_reader :tournament, :events, :teams, :placings, :penalties
@@ -29,12 +29,12 @@ module SciolyFF
       sort_teams_by_rank
     end
 
-    def subdivisions
-      @subdivisions ||=
-        teams.map(&:subdivision)
+    def tracks
+      @tracks ||=
+        teams.map(&:track)
              .uniq
              .compact
-             .map { |sub| [sub, Interpreter.new(subdivision_rep(sub))] }
+             .map { |sub| [sub, Interpreter.new(track_rep(sub))] }
              .to_h
     end
 
@@ -83,7 +83,7 @@ module SciolyFF
     end
 
     include Interpreter::Tiebreaks
-    include Interpreter::Subdivisions
+    include Interpreter::Tracks
     include Interpreter::HTML
   end
 end

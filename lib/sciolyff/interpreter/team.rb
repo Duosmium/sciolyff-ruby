@@ -12,10 +12,10 @@ module SciolyFF
       @placings_by_event =
         @placings.group_by(&:event).transform_values!(&:first)
 
-      link_to_team_in_subdivision_interpreter(interpreter)
+      link_to_team_in_track_interpreter(interpreter)
     end
 
-    attr_reader :placings, :penalties, :subdivision_team
+    attr_reader :placings, :penalties, :track_team
 
     def school
       @rep[:school]
@@ -29,8 +29,8 @@ module SciolyFF
       @rep[:suffix]
     end
 
-    def subdivision
-      @rep[:subdivision]
+    def track
+      @rep[:track]
     end
 
     def exhibition?
@@ -100,10 +100,10 @@ module SciolyFF
 
     private
 
-    def link_to_team_in_subdivision_interpreter(interpreter)
-      return @subdivision_team = nil unless (sub = subdivision)
+    def link_to_team_in_track_interpreter(interpreter)
+      return @track_team = nil unless (sub = track)
 
-      @subdivision_team = interpreter.subdivisions[sub].teams.find do |t|
+      @track_team = interpreter.tracks[sub].teams.find do |t|
         t.number == number
       end
     end
