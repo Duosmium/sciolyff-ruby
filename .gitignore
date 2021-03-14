@@ -3,3 +3,5 @@ ztestscript*.rb
 .idea
 .yardoc
 doc
+**/.solargraph.yml
+.vscode
