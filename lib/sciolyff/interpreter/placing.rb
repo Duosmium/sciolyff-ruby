@@ -107,7 +107,7 @@ module SciolyFF
     end
 
     def points_affected_by_exhibition?
-      considered_for_team_points? && place && !exhibition_placings_behind.zero?
+      considered_for_team_points? && place && !exhibition_placings_behind(false).zero?
     end
 
     def points_limited_by_maximum_place?
