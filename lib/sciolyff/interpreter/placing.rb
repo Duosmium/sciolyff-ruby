@@ -11,8 +11,6 @@ module SciolyFF
       super
       @event = interpreter.events.find { |e| e.name   == @rep[:event] }
       @team  = interpreter.teams .find { |t| t.number == @rep[:team]  }
-
-      link_to_placing_in_track_interpreter(interpreter)
     end
 
     attr_reader :event, :team
