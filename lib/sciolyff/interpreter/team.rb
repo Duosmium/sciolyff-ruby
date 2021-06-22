@@ -60,7 +60,7 @@ module SciolyFF
     end
 
     def track_rank
-      @track.teams.find_index(self) + 1
+      @track.teams.sort_by(&:track_points).find_index(self) + 1
     end
 
     def points
