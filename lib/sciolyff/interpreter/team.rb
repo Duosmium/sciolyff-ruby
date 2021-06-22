@@ -100,8 +100,6 @@ module SciolyFF
       end
     end
 
-    private
-
     def add_track(new_track)
       @track = new_track
     end

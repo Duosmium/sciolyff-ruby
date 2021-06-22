@@ -62,7 +62,7 @@ module SciolyFF
 
     def link_teams_and_tracks
       @teams.each do |team|
-        team.add_track(@tracks.find { |t| t.name == team.track_name }.first) if team.track_name
+        team.add_track(@tracks.find { |t| t.name == team.track_name }) if team.track_name
       end
     end
 
