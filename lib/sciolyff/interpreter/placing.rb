@@ -40,7 +40,7 @@ module SciolyFF
     end
 
     def track_place
-      @track_place ||= @team.track.placings.index(self) + 1
+      @track_place ||= @team.track.placings.collect{ |p| p.event == @event }.index(self) + 1
     end
 
     def raw
