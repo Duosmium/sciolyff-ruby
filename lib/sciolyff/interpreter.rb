@@ -37,10 +37,10 @@ module SciolyFF
     def create_models(rep)
       @tournament = Tournament.new(rep)
       @events     = map_array_to_models rep[:Events],    Event,   rep
+      @tracks     = map_array_to_models rep[:Tracks],    Track,   rep
       @teams      = map_array_to_models rep[:Teams],     Team,    rep
       @placings   = map_array_to_models rep[:Placings],  Placing, rep
       @penalties  = map_array_to_models rep[:Penalties], Penalty, rep
-      @tracks     = map_array_to_models rep[:Tracks],    Track,   rep
     end
 
     def map_array_to_models(arr, object_class, rep)
@@ -51,10 +51,10 @@ module SciolyFF
 
     def link_models(interpreter)
       # models have to linked in reverse order because reasons
-      @tracks   .each { |m| m.link_to_other_models(interpreter) }
       @penalties.each { |m| m.link_to_other_models(interpreter) }
       @placings .each { |m| m.link_to_other_models(interpreter) }
       @teams    .each { |m| m.link_to_other_models(interpreter) }
+      @tracks   .each { |m| m.link_to_other_models(interpreter) }
       @events   .each { |m| m.link_to_other_models(interpreter) }
       @tournament.link_to_other_models(interpreter)
     end

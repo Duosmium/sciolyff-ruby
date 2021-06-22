@@ -11,10 +11,9 @@ module SciolyFF
       @penalties = interpreter.penalties.select { |p| p.team == self }
       @placings_by_event =
         @placings.group_by(&:event).transform_values!(&:first)
-      @track     = interpreter.tracks.select { |t| t.name == @rep[:track] }
     end
 
-    attr_reader :placings, :penalties, :track
+    attr_reader :placings, :penalties
 
     def school
       @rep[:school]
@@ -26,6 +25,10 @@ module SciolyFF
 
     def suffix
       @rep[:suffix]
+    end
+
+    def track
+      @rep[:track]
     end
 
     def exhibition?
