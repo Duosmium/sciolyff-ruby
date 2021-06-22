@@ -5,7 +5,7 @@ require 'sciolyff/validator/sections'
 require 'sciolyff/validator/range'
 
 module SciolyFF
-  # Checks for one track in the Tracks section of a SciolyFF file
+  # Checks for one track in the Track section of a SciolyFF file
   class Validator::Tracks < Validator::Checker
     include Validator::Sections
 
@@ -20,7 +20,7 @@ module SciolyFF
     }.freeze
 
     def initialize(rep)
-      @names = rep[:Tracks].map { |s| s[:name] }
+      @names = rep[:Track].map { |s| s[:name] }
       @teams = rep[:Teams].group_by { |t| t[:track] }
     end
 

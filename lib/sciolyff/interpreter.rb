@@ -11,10 +11,10 @@ module SciolyFF
     require 'sciolyff/interpreter/penalty'
 
     require 'sciolyff/interpreter/tiebreaks'
-    require 'sciolyff/interpreter/tracks'
+    require 'sciolyff/interpreter/track'
     require 'sciolyff/interpreter/html'
 
-    attr_reader :tournament, :events, :teams, :placings, :penalties
+    attr_reader :tournament, :events, :teams, :placings, :penalties, :tracks
 
     def initialize(rep)
       if rep.instance_of? String
@@ -29,15 +29,6 @@ module SciolyFF
       sort_teams_by_rank
     end
 
-    def tracks
-      @tracks ||=
-        teams.map(&:track)
-             .uniq
-             .compact
-             .map { |sub| [sub, Interpreter.new(track_rep(sub))] }
-             .to_h
-    end
-
     def raws?
       placings.any?(&:raw?)
     end
@@ -50,6 +41,7 @@ module SciolyFF
       @teams      = map_array_to_models rep[:Teams],     Team,    rep
       @placings   = map_array_to_models rep[:Placings],  Placing, rep
       @penalties  = map_array_to_models rep[:Penalties], Penalty, rep
+      @tracks     = map_array_to_models rep[:Tracks],    Track,   rep
     end
 
     def map_array_to_models(arr, object_class, rep)
@@ -60,6 +52,7 @@ module SciolyFF
 
     def link_models(interpreter)
       # models have to linked in reverse order because reasons
+      @tracks   .each { |m| m.link_to_other_models(interpreter) }
       @penalties.each { |m| m.link_to_other_models(interpreter) }
       @placings .each { |m| m.link_to_other_models(interpreter) }
       @teams    .each { |m| m.link_to_other_models(interpreter) }
@@ -83,7 +76,5 @@ module SciolyFF
     end
 
     include Interpreter::Tiebreaks
-    include Interpreter::Tracks
-    include Interpreter::HTML
   end
 end

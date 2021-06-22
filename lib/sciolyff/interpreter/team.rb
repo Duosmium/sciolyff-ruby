@@ -11,11 +11,9 @@ module SciolyFF
       @penalties = interpreter.penalties.select { |p| p.team == self }
       @placings_by_event =
         @placings.group_by(&:event).transform_values!(&:first)
-
-      link_to_team_in_track_interpreter(interpreter)
     end
 
-    attr_reader :placings, :penalties, :track_team
+    attr_reader :placings, :penalties
 
     def school
       @rep[:school]
@@ -95,16 +93,6 @@ module SciolyFF
       (1..(@tournament.teams.count + 2)).map do |medal_points|
         placings.select { |p| p.event.trial? }
                 .count { |p| p.isolated_points == medal_points }
-      end
-    end
-
-    private
-
-    def link_to_team_in_track_interpreter(interpreter)
-      return @track_team = nil unless (sub = track)
-
-      @track_team = interpreter.tracks[sub].teams.find do |t|
-        t.number == number
       end
     end
   end
