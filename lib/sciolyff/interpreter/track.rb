@@ -8,6 +8,7 @@ module SciolyFF
     def link_to_other_models(interpreter)
       super
       @teams = interpreter.teams.find { |t| t.track == self }
+      puts @teams
       @placings = interpreter.placings.find { |p| p.team.track == self }
       @penalties = interpreter.penalties.find { |p| p.team.track == self }
     end
