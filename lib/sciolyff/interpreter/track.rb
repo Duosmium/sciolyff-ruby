@@ -7,9 +7,9 @@ module SciolyFF
   class Interpreter::Track < Interpreter::Model
     def link_to_other_models(interpreter)
       super
-      @teams = interpreter.teams.find { |t| t.track == @rep[:name] }
-      @placings = interpreter.placings.find { |p| p.team.track == @rep[:name] }
-      @penalties = interpreter.penalties.find { |p| p.team.track == @rep[:name] }
+      @teams = interpreter.teams.find { |t| t.track == self }
+      @placings = interpreter.placings.find { |p| p.team.track == self }
+      @penalties = interpreter.penalties.find { |p| p.team.track == self }
     end
 
     attr_reader :teams, :placings, :penalties
