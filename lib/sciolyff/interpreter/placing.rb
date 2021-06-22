@@ -93,7 +93,7 @@ module SciolyFF
       if    disqualified? then n + 2
       elsif did_not_participate? then n + 1
       elsif participation_only? || unknown? then n
-      else  [calculate_points, max_place].min
+      else  [calculate_points(true), max_place].min
       end
     end
 
