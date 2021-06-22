@@ -68,7 +68,7 @@ module SciolyFF
     end
 
     def track_points
-      @points ||= placings.sum(&:track_points) + penalties.sum(&:points)
+      @track_points ||= placings.sum(&:track_points) + penalties.sum(&:points)
     end
 
     def earned_bid?
