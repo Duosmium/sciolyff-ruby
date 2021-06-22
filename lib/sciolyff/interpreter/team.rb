@@ -59,6 +59,10 @@ module SciolyFF
       @tournament.teams.find_index(self) + 1
     end
 
+    def track_rank
+      @track.teams.find_index(self) + 1
+    end
+
     def points
       @points ||= placings.sum(&:points) + penalties.sum(&:points)
     end
