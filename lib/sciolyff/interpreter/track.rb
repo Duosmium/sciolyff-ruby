@@ -14,6 +14,10 @@ module SciolyFF
 
     attr_reader :teams, :placings, :penalties
 
+    def name
+      @rep[:name]
+    end
+
     def medals
       @rep[:medals] || @tournament.medals
     end
