@@ -7,9 +7,9 @@ module SciolyFF
   class Interpreter::Track < Interpreter::Model
     def link_to_other_models(interpreter)
       super
-      @teams = interpreter.teams.select { |t| t.track_name == @rep[:name] }.compact!
-      @placings = interpreter.placings.select { |p| p.team.track_name == @rep[:name] }.compact!
-      @penalties = interpreter.penalties.select { |p| p.team.track_name == @rep[:name] }.compact!
+      @teams = interpreter.teams.select { |t| t.track_name == @rep[:name] }
+      @placings = interpreter.placings.select { |p| p.team.track_name == @rep[:name] }
+      @penalties = interpreter.penalties.select { |p| p.team.track_name == @rep[:name] }
     end
 
     attr_reader :teams, :placings, :penalties
