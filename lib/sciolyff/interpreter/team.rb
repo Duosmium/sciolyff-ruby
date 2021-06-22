@@ -13,7 +13,7 @@ module SciolyFF
         @placings.group_by(&:event).transform_values!(&:first)
     end
 
-    attr_reader :placings, :penalties
+    attr_reader :placings, :penalties, :track
 
     def school
       @rep[:school]
@@ -27,7 +27,7 @@ module SciolyFF
       @rep[:suffix]
     end
 
-    def track
+    def track_name
       @rep[:track]
     end
 
@@ -63,6 +63,10 @@ module SciolyFF
       @points ||= placings.sum(&:points) + penalties.sum(&:points)
     end
 
+    def track_points
+      @points ||= placings.sum(&:track_points) + penalties.sum(&:points)
+    end
+
     def earned_bid?
       school_rank = @tournament.teams_eligible_for_bids.find_index(self)
       !school_rank.nil? && school_rank < @tournament.bids
@@ -94,6 +98,12 @@ module SciolyFF
         placings.select { |p| p.event.trial? }
                 .count { |p| p.isolated_points == medal_points }
       end
+    end
+
+    private
+
+    def add_track(new_track)
+      @track = new_track
     end
   end
 end

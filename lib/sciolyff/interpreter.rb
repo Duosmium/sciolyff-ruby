@@ -23,6 +23,7 @@ module SciolyFF
       end
       create_models(@rep = rep)
       link_models(self)
+      link_teams_and_tracks
 
       sort_events_naturally
       sort_teams_by_rank
@@ -57,6 +58,12 @@ module SciolyFF
       @tracks   .each { |m| m.link_to_other_models(interpreter) }
       @events   .each { |m| m.link_to_other_models(interpreter) }
       @tournament.link_to_other_models(interpreter)
+    end
+
+    def link_teams_and_tracks
+      @teams.each do |team|
+        team.add_track(@tracks.find { |t| t.name == team.track_name }.first)
+      end
     end
 
     def sort_events_naturally

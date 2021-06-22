@@ -69,8 +69,25 @@ module SciolyFF
                   end
     end
 
+    def track_points
+      @track_points ||= if !considered_for_team_points? then 0
+                  else isolated_track_points
+                  end
+    end
+
     def isolated_points
       max_place = event.maximum_place
+      n = max_place + tournament.n_offset
+
+      if    disqualified? then n + 2
+      elsif did_not_participate? then n + 1
+      elsif participation_only? || unknown? then n
+      else  [calculate_points, max_place].min
+      end
+    end
+
+    def isolated_track_points
+      max_place = team.track.maximum_place
       n = max_place + tournament.n_offset
 
       if    disqualified? then n + 2
