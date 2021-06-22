@@ -7,7 +7,7 @@ module SciolyFF
   class Interpreter::Track < Interpreter::Model
     def link_to_other_models(interpreter)
       super
-      @teams = interpreter.teams.select { |t| t.track_name == @rep[:name] }
+      @teams = interpreter.teams.select { |t| t.track_name == @rep[:name] }.sort_by(&:track_points)
       @placings = interpreter.placings.select { |p| p.team.track_name == @rep[:name] }
       @penalties = interpreter.penalties.select { |p| p.team.track_name == @rep[:name] }
     end
