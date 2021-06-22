@@ -12,7 +12,6 @@ module SciolyFF
 
     require 'sciolyff/interpreter/tiebreaks'
     require 'sciolyff/interpreter/track'
-    require 'sciolyff/interpreter/html'
 
     attr_reader :tournament, :events, :teams, :placings, :penalties, :tracks
 
