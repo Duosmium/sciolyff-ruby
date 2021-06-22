@@ -11,11 +11,9 @@ module SciolyFF
       super
       @event = interpreter.events.find { |e| e.name   == @rep[:event] }
       @team  = interpreter.teams .find { |t| t.number == @rep[:team]  }
-
-      link_to_placing_in_track_interpreter(interpreter)
     end
 
-    attr_reader :event, :team, :track_placing
+    attr_reader :event, :team
 
     def participated?
       @rep[:participated] || @rep[:participated].nil?
@@ -39,6 +37,10 @@ module SciolyFF
 
     def place
       raw? ? @place ||= event.raws.find_index(raw) + 1 : @rep[:place]
+    end
+
+    def track_place
+      @track_place ||= @team.track.placings.select { |p| p.event == @event }.sort_by!(&:isolated_points).find_index(self) + 1
     end
 
     def raw
@@ -67,6 +69,12 @@ module SciolyFF
                   end
     end
 
+    def track_points
+      @track_points ||= if !considered_for_team_points? then 0
+                  else isolated_track_points
+                  end
+    end
+
     def isolated_points
       max_place = event.maximum_place
       n = max_place + tournament.n_offset
@@ -74,7 +82,18 @@ module SciolyFF
       if    disqualified? then n + 2
       elsif did_not_participate? then n + 1
       elsif participation_only? || unknown? then n
-      else  [calculate_points, max_place].min
+      else  [calculate_points(false), max_place].min
+      end
+    end
+
+    def isolated_track_points
+      max_place = team.track.maximum_place
+      n = max_place + tournament.n_offset
+
+      if    disqualified? then n + 2
+      elsif did_not_participate? then n + 1
+      elsif participation_only? || unknown? then n
+      else  [calculate_points(true), max_place].min
       end
     end
 
@@ -88,39 +107,50 @@ module SciolyFF
     end
 
     def points_affected_by_exhibition?
-      considered_for_team_points? && place && !exhibition_placings_behind.zero?
+      considered_for_team_points? && place && !exhibition_placings_behind(false).zero?
     end
 
     def points_limited_by_maximum_place?
       tournament.custom_maximum_place? &&
         (unknown? ||
          (place &&
-          (calculate_points > event.maximum_place ||
-           calculate_points == event.maximum_place && tie?
+          (calculate_points(false) > event.maximum_place ||
+           calculate_points(false) == event.maximum_place && tie?
           )))
     end
 
     private
 
-    def calculate_points
-      return place if event.trial?
-
-      place - exhibition_placings_behind
-    end
-
-    def exhibition_placings_behind
-      @exhibition_placings_behind ||= event.placings.count do |p|
-        (p.exempt? || p.team.exhibition?) &&
-          p.place &&
-          p.place < place
+    def calculate_points(in_track)
+      if in_track
+        if event.trial?
+          track_place
+        else
+          track_place - exhibition_placings_behind(true)
+        end
+      else
+        if event.trial?
+          place
+        else
+          place - exhibition_placings_behind(false)
+        end
       end
     end
 
-    def link_to_placing_in_track_interpreter(interpreter)
-      return @track_placing = nil unless (sub = team.track)
-
-      @track_placing = interpreter.tracks[sub].placings.find do |p|
-        p.event.name == event.name && p.team.number == team.number
+    def exhibition_placings_behind(in_track)
+      if in_track
+        @track_exhibition_placings_behind ||= event.placings.count do |p|
+          (p.exempt? || p.team.exhibition?) &&
+            p.team.track == team.track &&
+            p.track_place &&
+            p.track_place < track_place
+        end
+      else
+        @exhibition_placings_behind ||= event.placings.count do |p|
+          (p.exempt? || p.team.exhibition?) &&
+            p.place &&
+            p.place < place
+        end
       end
     end
   end

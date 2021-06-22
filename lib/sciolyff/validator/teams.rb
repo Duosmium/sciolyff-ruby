@@ -26,7 +26,7 @@ module SciolyFF
 
     def initialize(rep)
       initialize_teams_info(rep[:Teams])
-      @tracks = rep[:Tracks]&.map { |s| s[:name] } || []
+      @tracks = rep[:Track]&.map { |s| s[:name] } || []
       @placings = rep[:Placings].group_by { |p| p[:team] }
       @exempt = rep[:Tournament][:'exempt placings'] || 0
     end
@@ -79,7 +79,7 @@ module SciolyFF
       return true if sub.nil? || @tracks.include?(sub)
 
       logger.error "'track: #{sub}' does not match any name in "\
-        'section Tracks'
+        'section Track'
     end
 
     def in_a_track_if_possible?(team, logger)

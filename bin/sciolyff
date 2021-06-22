@@ -8,10 +8,8 @@ opts = Optimist.options do
   version 'sciolyff 0.13.1'
   banner <<~STRING
     Checks if a given file is in the Scioly File Format
-
     Usage:
             #{File.basename(__FILE__)} [options] <file>
-
     where [options] are:
   STRING
   opt :loglevel, 'Log verbosity from 0 to 3', default: 1

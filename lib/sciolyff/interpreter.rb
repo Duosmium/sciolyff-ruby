@@ -11,10 +11,9 @@ module SciolyFF
     require 'sciolyff/interpreter/penalty'
 
     require 'sciolyff/interpreter/tiebreaks'
-    require 'sciolyff/interpreter/tracks'
-    require 'sciolyff/interpreter/html'
+    require 'sciolyff/interpreter/track'
 
-    attr_reader :tournament, :events, :teams, :placings, :penalties
+    attr_reader :tournament, :events, :teams, :placings, :penalties, :tracks
 
     def initialize(rep)
       if rep.instance_of? String
@@ -24,18 +23,10 @@ module SciolyFF
       end
       create_models(@rep = rep)
       link_models(self)
+      link_teams_and_tracks
 
       sort_events_naturally
       sort_teams_by_rank
-    end
-
-    def tracks
-      @tracks ||=
-        teams.map(&:track)
-             .uniq
-             .compact
-             .map { |sub| [sub, Interpreter.new(track_rep(sub))] }
-             .to_h
     end
 
     def raws?
@@ -47,6 +38,7 @@ module SciolyFF
     def create_models(rep)
       @tournament = Tournament.new(rep)
       @events     = map_array_to_models rep[:Events],    Event,   rep
+      @tracks     = map_array_to_models rep[:Tracks],    Track,   rep
       @teams      = map_array_to_models rep[:Teams],     Team,    rep
       @placings   = map_array_to_models rep[:Placings],  Placing, rep
       @penalties  = map_array_to_models rep[:Penalties], Penalty, rep
@@ -63,8 +55,15 @@ module SciolyFF
       @penalties.each { |m| m.link_to_other_models(interpreter) }
       @placings .each { |m| m.link_to_other_models(interpreter) }
       @teams    .each { |m| m.link_to_other_models(interpreter) }
+      @tracks   .each { |m| m.link_to_other_models(interpreter) }
       @events   .each { |m| m.link_to_other_models(interpreter) }
       @tournament.link_to_other_models(interpreter)
+    end
+
+    def link_teams_and_tracks
+      @teams.each do |team|
+        team.add_track(@tracks.find { |t| t.name == team.track_name }) if team.track_name
+      end
     end
 
     def sort_events_naturally
@@ -83,7 +82,5 @@ module SciolyFF
     end
 
     include Interpreter::Tiebreaks
-    include Interpreter::Tracks
-    include Interpreter::HTML
   end
 end

@@ -11,11 +11,9 @@ module SciolyFF
       @penalties = interpreter.penalties.select { |p| p.team == self }
       @placings_by_event =
         @placings.group_by(&:event).transform_values!(&:first)
-
-      link_to_team_in_track_interpreter(interpreter)
     end
 
-    attr_reader :placings, :penalties, :track_team
+    attr_reader :placings, :penalties, :track
 
     def school
       @rep[:school]
@@ -29,7 +27,7 @@ module SciolyFF
       @rep[:suffix]
     end
 
-    def track
+    def track_name
       @rep[:track]
     end
 
@@ -61,8 +59,16 @@ module SciolyFF
       @tournament.teams.find_index(self) + 1
     end
 
+    def track_rank
+      @track.teams.sort_by(&:track_points).find_index(self) + 1
+    end
+
     def points
       @points ||= placings.sum(&:points) + penalties.sum(&:points)
+    end
+
+    def track_points
+      @track_points ||= placings.sum(&:track_points) + penalties.sum(&:points)
     end
 
     def earned_bid?
@@ -98,14 +104,8 @@ module SciolyFF
       end
     end
 
-    private
-
-    def link_to_team_in_track_interpreter(interpreter)
-      return @track_team = nil unless (sub = track)
-
-      @track_team = interpreter.tracks[sub].teams.find do |t|
-        t.number == number
-      end
+    def add_track(new_track)
+      @track = new_track
     end
   end
 end

@@ -41,7 +41,7 @@ module SciolyFF
 
     def maximum_place
       @maximum_place ||=
-        placings.size
+        (tournament.per_event_n? ? per_event_maximum_place : placings.size)
     end
 
     private
@@ -49,7 +49,7 @@ module SciolyFF
     def per_event_maximum_place
       return competing_teams_count if tournament.per_event_n == 'participation'
 
-      placings.map(&:place).compact.max + 1
+      placings.map(&:place).compact.max
     end
 
     def competing_teams_count
