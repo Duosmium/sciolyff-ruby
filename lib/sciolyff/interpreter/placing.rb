@@ -82,7 +82,7 @@ module SciolyFF
       if    disqualified? then n + 2
       elsif did_not_participate? then n + 1
       elsif participation_only? || unknown? then n
-      else  [calculate_points, max_place].min
+      else  [calculate_points(false), max_place].min
       end
     end
 
@@ -114,14 +114,14 @@ module SciolyFF
       tournament.custom_maximum_place? &&
         (unknown? ||
          (place &&
-          (calculate_points > event.maximum_place ||
-           calculate_points == event.maximum_place && tie?
+          (calculate_points(false) > event.maximum_place ||
+           calculate_points(false) == event.maximum_place && tie?
           )))
     end
 
     private
 
-    def calculate_points(in_track = false)
+    def calculate_points(in_track)
       if in_track
         if event.trial?
           track_place
@@ -132,12 +132,12 @@ module SciolyFF
         if event.trial?
           place
         else
-          place - exhibition_placings_behind
+          place - exhibition_placings_behind(false)
         end
       end
     end
 
-    def exhibition_placings_behind(in_track = false)
+    def exhibition_placings_behind(in_track)
       if in_track
         @track_exhibition_placings_behind ||= event.placings.count do |p|
           (p.exempt? || p.team.exhibition?) &&
