@@ -27,7 +27,7 @@ module SciolyFF
     end
 
     def maximum_place
-      [@teams.count { |t| !t.exhibition? }, @tournament.maximum_place].min
+      @maximum_place ||= [@teams.count { |t| !t.exhibition? }, @tournament.maximum_place].min
     end
   end
 end
