@@ -55,13 +55,7 @@ module SciolyFF
                           Date.parse(@rep[:'start date'])
                         end
                       else
-                        if @rep[:date].instance_of?(Date)
-                          @rep[:date]
-                        else
-                          unless @rep[:date].nil?
-                            Date.parse(@rep[:date])
-                          end
-                        end
+                        date
                       end
     end
 
@@ -73,13 +67,7 @@ module SciolyFF
                         Date.parse(@rep[:'end date'])
                       end
                     else
-                      if @rep[:date].instance_of?(Date)
-                        @rep[:date]
-                      else
-                        unless @rep[:date].nil?
-                          Date.parse(@rep[:date])
-                        end
-                      end
+                      start_date
                     end
     end
 
@@ -91,21 +79,7 @@ module SciolyFF
                            Date.parse(@rep[:'awards date'])
                          end
                        else
-                         if !@rep[:'end date'].nil?
-                           if @rep[:'end date'].instance_of?(Date)
-                             @rep[:'end date']
-                           else
-                             Date.parse(@rep[:'end date'])
-                           end
-                         else
-                           if @rep[:date].instance_of?(Date)
-                             @rep[:date]
-                           else
-                             unless @rep[:date].nil?
-                               Date.parse(@rep[:date])
-                             end
-                           end
-                         end
+                         end_date
                        end
     end
 
