@@ -27,12 +27,16 @@ jobs:
       with:
         ruby-version: 2.6
 
+    # We don't have any dependencies, but...
+    - name: Create Gemfile
+      run: touch Gemfile
+
     # This step is not necessary if you add the gem to your Gemfile
     - name: Install Code Scanning integration
-      run: bundle add code-scanning-rubocop --version 0.3.0 --skip-install
+      run: bundle add code-scanning-rubocop --version 0.3.0
 
-#     - name: Install dependencies
-#       run: bundle install
+    - name: Install dependencies
+      run: bundle install
 
     - name: Rubocop run
       run: |
